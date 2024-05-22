@@ -84,7 +84,7 @@ class MarketData:
         j = resp.json()
         df = pd.json_normalize(j["results"], record_path=["data"], meta="symbol")  # type: ignore
 
-        df.columns = df.columns.str.replace("change.", "", regex=True)  # type: ignore
+        df.columns = df.columns.map(str).str.replace("change.", "", regex=True)  # type: ignore
 
         if "assessDate" in df.columns:
             df["assessDate"] = pd.to_datetime(df["assessDate"])  # type: ignore

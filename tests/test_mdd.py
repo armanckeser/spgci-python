@@ -47,6 +47,15 @@ class MddTest(unittest.TestCase):
         self.assertGreater(len(df), 100)  # type: ignore
 
     @pytest.mark.integtest
+    def test_empty_historical(self):
+        df = self.mdd.get_assessments_by_symbol_historical(
+                symbol=["KBCOC00"],
+                assess_date_gte=date(2023, 1, 19),
+                assess_date_lte=date(2023, 2, 18),
+        )
+        self.assertEqual(len(df), 0)  # type: ignore
+
+    @pytest.mark.integtest
     def test_mdc(self):
         df = self.mdd.get_assessments_by_mdc_current(mdc="ET")
         self.assertGreater(len(df), 100)  # type: ignore
